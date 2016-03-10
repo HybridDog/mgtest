@@ -80,7 +80,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 end)
 
 function inform(msg)
-	print(msg)
+	minetest.log("info", msg)
 	--minetest.chat_send_all(msg)
 end
 
