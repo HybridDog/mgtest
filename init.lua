@@ -55,14 +55,16 @@ minetest.register_on_generated(function(minp, maxp, seed)
 		for x=minp.x,maxp.x do
 			local test = math.abs(perlin1:get2d({x=x, y=z}))
 			if test <= 0.1 then
-				for y=math.max(minp.y, math.floor(test*100-10+0.5)),math.min(heightmap[hmi]+15, maxp.y) do
-					local p_pos = area:index(x, y, z)
+				local vi
+				for y = math.max(minp.y, math.floor(test*100-10+0.5)),math.min(heightmap[hmi]+15, maxp.y) do
+					vi = vi or area:index(x, y, z)
 					if y <= 1 then
-						data[p_pos] = c_water
+						data[vi] = c_water
 					else
-						data[p_pos] = c_air
+						data[vi] = c_air
 					end
 					node_changed = true
+					vi = vi + area.ystride
 				end
 			end
 			hmi = hmi+1
